@@ -3,7 +3,6 @@
 # Author: Micheal Kerr
 # Summary: keeps units away from walls
 ##
-#rwrap was here
 
 execute as @e[tag=unit] at @s unless block ^1 ^3 ^2 air run tp @s ^-.1 ^ ^
 execute as @e[tag=unit] at @s unless block ^2 ^3 ^2 air run tp @s ^-.1 ^ ^

@@ -8,14 +8,14 @@
 
 #kill @e[type=armor_stand]
 
-# give player carrot on a stick
+# give player carrot on a stick if they are holding the stick (init)
 execute as @a[nbt=!{Inventory:[{Slot: -106b, id: "minecraft:carrot_on_a_stick"}]}] run clear @s minecraft:carrot_on_a_stick
 execute as @a[nbt={SelectedItem:{tag:{move_goal:1b}}}] run replaceitem entity @s weapon.offhand minecraft:carrot_on_a_stick
 execute as @a[nbt=!{SelectedItem:{tag:{move_goal:1b}}}] run replaceitem entity @s weapon.offhand minecraft:air
 
 # summon goal
 execute if entity @e[scores={action=1..}] run kill @e[tag=goal]
-execute as @e[scores={action=1..}] at @s positioned ~ ~1.5 ~ run function dijkstra:raycast
+execute as @e[scores={action=1..}] at @s positioned ~ ~1.5 ~ run function pathfinding:goal_summon_final
 tag @e[tag=unit] add moving
 
 # if the unit is in a different quad than the goal, then find portals to the goal
@@ -29,7 +29,7 @@ execute if entity @e[scores={action=1..}] as @e[tag=goal] store result score @s 
 execute if entity @e[scores={action=1..}] as @e[tag=goal] run scoreboard players operation @s chunkPosY /= 10 constants
 execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s chunkPosX = @e[tag=unit,limit=1] chunkPosX run tag @s add recurse
 execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s chunkPosY = @e[tag=unit,limit=1] chunkPosY run tag @s add recurse
-execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run function dijkstra:path_to_quad_new
+execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run function pathfinding:goal_summmon_windows
 
 # if unit has los to the next target, kill closest target
 execute as @e[tag=unit,limit=1] at @s as @e[tag=goal,sort=nearest,limit=1] at @s as @e[tag=goal,sort=nearest,distance=.1..,limit=1] at @s positioned ~ ~.5 ~ facing entity @e[tag=unit,limit=1] eyes run function dijkstra:los_to_unit

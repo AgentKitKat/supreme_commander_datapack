@@ -9,4 +9,4 @@ execute unless block ~ ~ ~ air align xyz positioned ~.5 ~1 ~.5 run summon minecr
 execute unless block ~ ~ ~ air run kill @e[type=item]
 
 # else, recurse
-execute if block ~ ~ ~ minecraft:air unless entity @e[distance=...75,type=armor_stand] positioned ^ ^ ^1 run function dijkstra:raycast
+execute if block ~ ~ ~ minecraft:air unless entity @e[distance=...75,type=armor_stand] positioned ^ ^ ^1 run function pathfinding:goal_summon_final
