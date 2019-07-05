@@ -31,9 +31,9 @@ execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s 
 execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run function pathfinding:goal_summon_windows
 
 # reset and update nodes
-#execute if entity @e[scores={action=1..}] run kill @e[tag=node]
-#execute if entity @e[scores={action=1..}] run function pathfinding:node_summon
-#execute if entity @e[scores={action=1..}] run function pathfinding:node_vectors
+execute if entity @e[scores={action=1..}] run kill @e[tag=node]
+execute if entity @e[scores={action=1..}] run function pathfinding:node_summon_helper
+#execute if entity @e[scores={action=1..}] run function pathfinding:node_vectors_helper
 #execute if entity @e[scores={action=1..}] as @e[tag=node] run scoreboard players reset @s open
 #execute if entity @e[scores={action=1..}] if entity @e[tag=unit,tag=!has_los] as @e[tag=unit] at @s as @e[tag=node,sort=nearest,limit=1] run function dijkstra.point_to
 

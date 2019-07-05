@@ -1,5 +1,7 @@
 ##
-# Summary: summons armor stands
+# node_summon.mcfunction
+# Author: Micheal Kerr
+# Summary: summons nodes
 ##
 
 # chooses a node that is open that is closest to the goal
@@ -50,4 +52,4 @@ execute unless score @e[tag=unit,limit=1] chunkPosY = @e[tag=next,limit=1] chunk
 scoreboard players set @e[tag=next,limit=1] open 1
 tag @e[tag=next] remove next
 
-execute if entity @e[tag=node,scores={open=1}] run function dijkstra:test_2
+execute if entity @e[tag=node,scores={open=1}] run function pathfinding:node_summon
