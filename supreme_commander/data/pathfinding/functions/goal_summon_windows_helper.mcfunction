@@ -14,7 +14,7 @@ tp ^ ^ ^1
 
 scoreboard players add @s trapped 1
 
-execute at @s if score @s trapped matches ..8 run function dijkstra:trapped_final
+execute at @s if score @s trapped matches ..8 run function pathfinding:goal_summon_windows_helper
 
 scoreboard players reset @s trapped
 tag @s remove placed_portal

@@ -14,16 +14,16 @@ execute store result entity @e[tag=goal2,limit=1] Pos[2] double 10 run scoreboar
 # teleport the helper along each line of the 10x10 chunk; summons child goals at each window
 execute as @e[tag=goal2] at @s facing ~1 ~ ~ run tp ~.5 ~ ~.5
 execute as @e[tag=goal2] run scoreboard players set @s trapped 0
-execute as @e[tag=goal2] at @s run function dijkstra:trapped_final
+execute as @e[tag=goal2] at @s run function pathfinding:goal_summon_windows_helper
 execute as @e[tag=goal2] at @s facing ^-1 ^ ^ run tp ~ ~ ~
 execute as @e[tag=goal2] run scoreboard players set @s trapped 0
-execute as @e[tag=goal2] at @s run function dijkstra:trapped_final
+execute as @e[tag=goal2] at @s run function pathfinding:goal_summon_windows_helper
 execute as @e[tag=goal2] at @s facing ^-1 ^ ^ run tp ~ ~ ~
 execute as @e[tag=goal2] run scoreboard players set @s trapped 0
-execute as @e[tag=goal2] at @s run function dijkstra:trapped_final
+execute as @e[tag=goal2] at @s run function pathfinding:goal_summon_windows_helper
 execute as @e[tag=goal2] at @s facing ^-1 ^ ^ run tp ~ ~ ~
 execute as @e[tag=goal2] run scoreboard players set @s trapped 0
-execute as @e[tag=goal2] at @s run function dijkstra:trapped_final
+execute as @e[tag=goal2] at @s run function pathfinding:goal_summon_windows_helper
 
 # removes the helper armor stand; selects the next closest goal to the unit
 kill @e[tag=goal2]
@@ -41,4 +41,4 @@ execute as @e[tag=goal2] store result score @s chunkPosY run data get entity @s 
 execute as @e[tag=goal2] run scoreboard players operation @s chunkPosY /= 10 constants
 execute as @e[tag=goal2] at @s unless score @s chunkPosX = @e[tag=unit,limit=1] chunkPosX run tag @s add recurse
 execute as @e[tag=goal2] at @s unless score @s chunkPosY = @e[tag=unit,limit=1] chunkPosY run tag @s add recurse
-execute as @e[tag=goal2,tag=recurse] at @s run function dijkstra:path_to_quad_new
+execute as @e[tag=goal2,tag=recurse] at @s run function pathfinding:goal_summon_windows
