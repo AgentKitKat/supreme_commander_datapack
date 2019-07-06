@@ -1,5 +1,5 @@
 ##
-# node_vectors_change_lowest.mcfunction
+# node_cost_change.mcfunction
 # Author: Micheal Kerr
 # Summary: updates the cost of nodes
 ##

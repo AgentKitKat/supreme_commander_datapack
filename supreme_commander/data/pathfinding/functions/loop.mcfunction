@@ -33,10 +33,7 @@ execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run 
 # reset and update nodes
 execute if entity @e[scores={action=1..}] run kill @e[tag=node]
 execute if entity @e[scores={action=1..}] run function pathfinding:node_summon_helper
-execute if entity @e[scores={action=1..}] run function pathfinding:node_vectors_helper
-#execute if entity @e[scores={action=1..}] as @e[tag=node] run scoreboard players reset @s open
-#execute if entity @e[scores={action=1..}] if entity @e[tag=unit,tag=!has_los] as @e[tag=unit] at @s as @e[tag=node,sort=nearest,limit=1] run function dijkstra.point_to
-
+execute if entity @e[scores={action=1..}] run function pathfinding:node_cost_helper
 
 # if unit has los to the second closest target, kill closest target
 #execute as @e[tag=unit,limit=1] at @s as @e[tag=goal,sort=nearest,limit=1] at @s as @e[tag=goal,sort=nearest,distance=.1..,limit=1] at @s positioned ~ ~.5 ~ facing entity @e[tag=unit,limit=1] eyes run function pathfinding:los_to_unit
