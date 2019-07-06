@@ -5,7 +5,7 @@
 ##
 
 # reset scores
-execute as @e[tag=node] run scoreboard players set @s open 1
+execute as @e[tag=node] run scoreboard players reset @s open
 execute as @e[tag=node] run scoreboard players set @s cost 0
 
 # choose the node at the closest goal and save it for later

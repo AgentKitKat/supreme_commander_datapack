@@ -52,4 +52,6 @@ execute unless score @e[tag=unit,limit=1] chunkPosY = @e[tag=next,limit=1] chunk
 scoreboard players set @e[tag=next,limit=1] open 1
 tag @e[tag=next] remove next
 
+tag @e[tag=cur] remove cur
+
 execute if entity @e[tag=node,scores={open=1}] run function pathfinding:node_summon
