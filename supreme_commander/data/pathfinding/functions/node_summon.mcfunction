@@ -9,7 +9,7 @@ execute as @e[tag=unit] at @s as @e[tag=node,scores={open=1},limit=1,sort=neares
 scoreboard players set @e[tag=cur] open 0
 
 # North
-execute as @e[tag=cur] at @s align xz positioned ~.5 ~ ~-.5 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~1 ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
+execute as @e[tag=cur] at @s positioned ~ ~ ~-1 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~ ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
 execute as @e[tag=next] store result score @s chunkPosX run data get entity @s Pos[0]
 execute as @e[tag=next] run scoreboard players operation @s chunkPosX /= 10 constants
 execute as @e[tag=next] store result score @s chunkPosY run data get entity @s Pos[2]
@@ -20,7 +20,7 @@ scoreboard players set @e[tag=next,limit=1] open 1
 tag @e[tag=next] remove next
 
 # East
-execute as @e[tag=cur] at @s align xz positioned ~1.5 ~ ~.5 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~1 ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
+execute as @e[tag=cur] at @s positioned ~1 ~ ~ unless entity @e[tag=node,limit=1,distance=0] if block ~ ~ ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
 execute as @e[tag=next] store result score @s chunkPosX run data get entity @s Pos[0]
 execute as @e[tag=next] run scoreboard players operation @s chunkPosX /= 10 constants
 execute as @e[tag=next] store result score @s chunkPosY run data get entity @s Pos[2]
@@ -31,7 +31,7 @@ scoreboard players set @e[tag=next,limit=1] open 1
 tag @e[tag=next] remove next
 
 # South
-execute as @e[tag=cur] at @s align xz positioned ~.5 ~ ~1.5 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~1 ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
+execute as @e[tag=cur] at @s positioned ~ ~ ~1 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~ ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
 execute as @e[tag=next] store result score @s chunkPosX run data get entity @s Pos[0]
 execute as @e[tag=next] run scoreboard players operation @s chunkPosX /= 10 constants
 execute as @e[tag=next] store result score @s chunkPosY run data get entity @s Pos[2]
@@ -42,7 +42,7 @@ scoreboard players set @e[tag=next,limit=1] open 1
 tag @e[tag=next] remove next
 
 # West
-execute as @e[tag=cur] at @s align xz positioned ~-.5 ~ ~.5 unless entity @e[tag=node,limit=1,distance=0] if block ~ ~1 ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
+execute as @e[tag=cur] at @s positioned ~-1 ~ ~ unless entity @e[tag=node,limit=1,distance=0] if block ~ ~ ~ air run summon minecraft:armor_stand ~ ~ ~ {Tags:["node","next"]}
 execute as @e[tag=next] store result score @s chunkPosX run data get entity @s Pos[0]
 execute as @e[tag=next] run scoreboard players operation @s chunkPosX /= 10 constants
 execute as @e[tag=next] store result score @s chunkPosY run data get entity @s Pos[2]

@@ -28,3 +28,5 @@ execute if entity @e[tag=node,scores={open=1}] as @e[tag=lowest_cost] at @s as @
 # once done, calculate vectors
 scoreboard players set @e[tag=node] open 1
 execute as @e[tag=node,scores={open=1}] at @s run function pathfinding:node_vectors
+
+function pathfinding:lol
