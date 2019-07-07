@@ -31,10 +31,10 @@ execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s 
 execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run function pathfinding:goal_summon_windows
 
 # reset and update nodes
-execute if entity @e[scores={action=1..}] run kill @e[tag=node]
 execute if entity @e[scores={action=1..}] run function pathfinding:node_summon_helper
 execute if entity @e[scores={action=1..}] run function pathfinding:node_cost_helper
-execute if entity @e[scores={action=1..}] as @e[tag=node] at @s run function pathfinding:node_facing
+execute if entity @e[scores={action=1..}] as @e[tag=node] at @s run tp @s ~ ~ ~ facing entity ATLtimber
+#execute if entity @e[scores={action=1..}] as @e[tag=node] at @s run function pathfinding:node_facing
 
 # move unsing nodes
 #execute if entity @e[tag=node,distance=...6] store result entity @e[tag=unit,limit=1] Motion[0] double .1 run scoreboard players get @e[tag=node,sort=nearest,limit=1] vectorX
