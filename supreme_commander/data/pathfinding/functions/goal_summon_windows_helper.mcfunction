@@ -4,7 +4,7 @@
 # Summary: moves a goal if it is inside of a block
 ##
 
-# if there isn't a block, place a portal 
+# if there isn't a block, place a portal
 execute as @s[tag=!placed_portal] if block ~ ~ ~ air if block ^1 ^ ^ air unless entity @e[tag=goal,distance=0] run summon minecraft:armor_stand ~ ~ ~ {Tags:["goal"]}
 execute as @s[tag=!placed_portal] if block ~ ~ ~ air if block ^1 ^ ^ air positioned ^1 ^ ^ unless entity @e[tag=goal,distance=0] run summon minecraft:armor_stand ^ ^ ^ {Tags:["goal","next_quad"]}
 execute as @s[tag=!placed_portal] if block ~ ~ ~ air if block ^1 ^ ^ air run tag @s add placed_portal

@@ -13,44 +13,11 @@ execute as @a[nbt=!{Inventory:[{Slot: -106b, id: "minecraft:carrot_on_a_stick"}]
 execute as @a[nbt={SelectedItem:{tag:{move_goal:1b}}}] run replaceitem entity @s weapon.offhand minecraft:carrot_on_a_stick
 execute as @a[nbt=!{SelectedItem:{tag:{move_goal:1b}}}] run replaceitem entity @s weapon.offhand minecraft:air
 
-# reset/summon final goal
-execute as @e[scores={action=1..}] run kill @e[tag=goal]
-execute as @e[scores={action=1..}] at @s positioned ~ ~1.5 ~ run function pathfinding:goal_summon_final
+# start pathfinding if the player right clicks
+execute as @e[scores={action=1..}] run function pathfinding:right_click
 
-# if the unit is in a different quad than the goal, then find portals to the goal
-execute if entity @e[scores={action=1..}] as @e[tag=unit] store result score @s chunkPosX run data get entity @s Pos[0]
-execute if entity @e[scores={action=1..}] as @e[tag=unit] run scoreboard players operation @s chunkPosX /= 10 constants
-execute if entity @e[scores={action=1..}] as @e[tag=unit] store result score @s chunkPosY run data get entity @s Pos[2]
-execute if entity @e[scores={action=1..}] as @e[tag=unit] run scoreboard players operation @s chunkPosY /= 10 constants
-execute if entity @e[scores={action=1..}] as @e[tag=goal] store result score @s chunkPosX run data get entity @s Pos[0]
-execute if entity @e[scores={action=1..}] as @e[tag=goal] run scoreboard players operation @s chunkPosX /= 10 constants
-execute if entity @e[scores={action=1..}] as @e[tag=goal] store result score @s chunkPosY run data get entity @s Pos[2]
-execute if entity @e[scores={action=1..}] as @e[tag=goal] run scoreboard players operation @s chunkPosY /= 10 constants
-execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s chunkPosX = @e[tag=unit,limit=1] chunkPosX run tag @s add recurse
-execute if entity @e[scores={action=1..}] as @e[tag=goal] at @s unless score @s chunkPosY = @e[tag=unit,limit=1] chunkPosY run tag @s add recurse
-execute if entity @e[scores={action=1..}] as @e[tag=goal,tag=recurse] at @s run function pathfinding:goal_summon_windows
-
-# reset and update nodes
-execute if entity @e[scores={action=1..}] run function pathfinding:node_summon_helper
-execute if entity @e[scores={action=1..}] run function pathfinding:node_cost_helper
-execute if entity @e[scores={action=1..}] as @e[tag=node] at @s run tp @s ~ ~ ~ facing entity ATLtimber
-#execute if entity @e[scores={action=1..}] as @e[tag=node] at @s run function pathfinding:node_facing
+# kill nodes if can see goal
+execute as @e[tag=unit] at @s facing entity @e[tag=goal,limit=1,sort=nearest] eyes run function los_to_goal_kill_nodes
 
 # move unsing nodes
-#execute if entity @e[tag=node,distance=...6] store result entity @e[tag=unit,limit=1] Motion[0] double .1 run scoreboard players get @e[tag=node,sort=nearest,limit=1] vectorX
-#execute if entity @e[tag=node,distance=...6] store result entity @e[tag=unit,limit=1] Motion[2] double .1 run scoreboard players get @e[tag=node,sort=nearest,limit=1] vectorY
-
-# if unit has los to the second closest target, kill closest target
-#execute as @e[tag=unit,limit=1] at @s as @e[tag=goal,sort=nearest,limit=1] at @s as @e[tag=goal,sort=nearest,distance=.1..,limit=1] at @s positioned ~ ~.5 ~ facing entity @e[tag=unit,limit=1] eyes run function pathfinding:los_to_unit
-#execute if entity @e[tag=goal,tag=los_to_unit] as @e[tag=unit,limit=1] at @s as @e[tag=goal,sort=nearest,limit=1] run kill @s
-
-# if unit has los to any target, kill nodes and move to current target
-#execute as @e[tag=unit] at @s positioned ~ ~1.5 ~ facing entity @e[tag=goal] eyes run function dijkstra:has_los
-#execute if entity @e[tag=unit,tag=has_los] run kill @e[tag=node]
-#execute as @e[tag=unit] at @s unless entity @e[tag=goal,distance=..1] if entity @e[tag=unit,tag=has_los] facing entity @e[tag=goal] feet run tp ^ ^ ^.1
-
-# kill goal if reached
-#execute as @e[tag=unit] at @s if entity @e[tag=goal,limit=1,sort=nearest,distance=..2.5] run kill @e[tag=goal,limit=1,sort=nearest,distance=..2.5]
-
-# reset scores and tags
-execute as @e[scores={action=1..}] run scoreboard players set @s action 0
+execute as @e[tag=unit] at @s rotated as @e[tag=node,sort=nearest,limit=1,distance=...6] run tp ^ ^ ^.1

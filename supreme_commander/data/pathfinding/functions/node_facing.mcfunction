@@ -18,5 +18,5 @@ execute store result entity @e[tag=facing,limit=1] Pos[2] double 1 run scoreboar
 execute as @e[tag=facing] at @s align xz run tp ~.5 ~ ~.5
 
 # face and remove the temp armor stand
-execute facing entity @e[tag=facing,limit=1] eyes run tp ~ ~ ~
+execute facing entity @e[tag=facing,limit=1] feet run tp ~ ~ ~
 kill @e[tag=facing]
